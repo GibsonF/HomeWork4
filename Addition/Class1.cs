@@ -156,7 +156,25 @@ namespace Addition
 
         public TD_Array(string filepath)
         {
-            string[] fileArray = File.ReadAllLines(filepath);
+            string newfilepath="";
+            bool flag = true;
+            string[] fileArray=new string[1];
+            do
+            {
+                try
+                {
+                    if (flag == true)
+                    {
+                         fileArray = File.ReadAllLines(filepath);
+                    } else  fileArray = File.ReadAllLines(newfilepath);
+                }
+                catch (FileNotFoundException)
+                {
+                    Console.WriteLine("Такого файла не существует. Попробуйте ввести имя существующего файла.");
+                    flag = false;
+                    newfilepath=Console.ReadLine();
+                }
+            } while (flag = false);
             string[] buf;
             buf = fileArray[1].Split(' ');
             a = new int[fileArray.Length, buf.Length];
